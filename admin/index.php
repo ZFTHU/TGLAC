@@ -96,7 +96,8 @@ $recentArticles = $articleModel->getList(1, 5, null, false);
             <h2>最近文章</h2>
             <a href="/admin/articles.php" class="btn btn-sm btn-outline">查看全部</a>
         </div>
-        <table class="admin-table">
+        <div class="admin-table-wrapper">
+            <table class="admin-table">
             <thead>
                 <tr>
                     <th>标题</th>
@@ -133,7 +134,8 @@ $recentArticles = $articleModel->getList(1, 5, null, false);
                 <?php endforeach; ?>
                 <?php endif; ?>
             </tbody>
-        </table>
+            </table>
+        </div>
     </div>
 </div>
 

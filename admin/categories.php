@@ -25,9 +25,10 @@ $categories = $categoryModel->getAll();
         <h1>分类管理</h1>
     </div>
 
-    <div style="display: grid; grid-template-columns: 300px 1fr; gap: 24px;">
+    <!-- 移动端单栏布局，桌面端双栏布局 -->
+    <div class="admin-categories-layout">
         <!-- 新建分类表单 -->
-        <div class="admin-card">
+        <div class="admin-card admin-categories-form">
             <div class="admin-card-header">
                 <h2>新建分类</h2>
             </div>
@@ -59,11 +60,12 @@ $categories = $categoryModel->getAll();
         </div>
 
         <!-- 分类列表 -->
-        <div class="admin-card">
+        <div class="admin-card admin-categories-list">
             <div class="admin-card-header">
                 <h2>分类列表</h2>
             </div>
-            <table class="admin-table">
+            <div class="admin-table-wrapper">
+                <table class="admin-table">
                 <thead>
                     <tr>
                         <th>名称</th>
@@ -96,6 +98,7 @@ $categories = $categoryModel->getAll();
                     <?php endif; ?>
                 </tbody>
             </table>
+        </div>
         </div>
     </div>
 </div>

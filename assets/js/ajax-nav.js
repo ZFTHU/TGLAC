@@ -145,19 +145,40 @@
 
     function updateActiveNav(url) {
         var path = new URL(url, location.origin).pathname;
+        var queryString = new URL(url, location.origin).search;
+        var params = new URLSearchParams(queryString);
+        var slug = params.get('slug');
 
-        document.querySelectorAll('.nav-menu a, .nav-bottom-item').forEach(function(link) {
+        document.querySelectorAll('.nav-menu a, .nav-bottom-item, .sidebar-menu a').forEach(function(link) {
             link.classList.remove('active');
         });
+
+        function isLinkActive(linkHref) {
+            var linkPath = new URL(linkHref, location.origin).pathname;
+            var linkQuery = new URL(linkHref, location.origin).search;
+            var linkParams = new URLSearchParams(linkQuery);
+            var linkSlug = linkParams.get('slug');
+
+            if (path === '/' || path === '/index.php') {
+                return linkPath === '/' || linkPath === '/index.php';
+            }
+
+            if (path.indexOf('/category.php') !== -1) {
+                if (linkPath.indexOf('/category.php') !== -1) {
+                    if (!slug && !linkSlug) return true;
+                    if (slug === linkSlug) return true;
+                    if (!slug && linkSlug === 'default') return true;
+                }
+                return false;
+            }
+
+            return linkPath === path;
+        }
 
         document.querySelectorAll('.nav-menu a').forEach(function(link) {
             var href = link.getAttribute('href');
             if (!href) return;
-            var linkPath = new URL(href, location.origin).pathname;
-            if (linkPath === path) {
-                link.classList.add('active');
-            }
-            if (path === '/' && linkPath === '/') {
+            if (isLinkActive(href)) {
                 link.classList.add('active');
             }
         });
@@ -165,8 +186,15 @@
         document.querySelectorAll('.nav-bottom-item').forEach(function(link) {
             var href = link.getAttribute('href');
             if (!href) return;
-            var linkPath = new URL(href, location.origin).pathname;
-            if (linkPath === path || (path.startsWith('/category') && linkPath === '/category.php')) {
+            if (isLinkActive(href)) {
+                link.classList.add('active');
+            }
+        });
+
+        document.querySelectorAll('.sidebar-menu a').forEach(function(link) {
+            var href = link.getAttribute('href');
+            if (!href) return;
+            if (isLinkActive(href)) {
                 link.classList.add('active');
             }
         });

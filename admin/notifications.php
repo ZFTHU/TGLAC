@@ -176,7 +176,8 @@ try {
                 <p>暂无通知记录</p>
             </div>
             <?php else: ?>
-            <table class="admin-table">
+            <div class="admin-table-wrapper">
+                <table class="admin-table">
                 <thead>
                     <tr>
                         <th>标题</th>
@@ -230,7 +231,8 @@ try {
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
-            </table>
+                </table>
+            </div>
             <?php endif; ?>
         </div>
     </div>

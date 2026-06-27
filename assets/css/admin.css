@@ -14,7 +14,7 @@
 
 /* 侧边栏 */
 .admin-sidebar {
-    width: 250px;
+    width: 220px;
     background: var(--primary-dark);
     color: white;
     display: flex;
@@ -71,8 +71,9 @@
 /* 主内容区 */
 .admin-main {
     flex: 1;
-    margin-left: 250px;
+    margin-left: 220px;
     padding: 24px;
+    min-height: 100vh;
 }
 
 .admin-container {
@@ -559,12 +560,126 @@
 }
 
 /* ========================================
+   移动端顶部导航栏
+   ======================================== */
+.admin-mobile-header {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 52px;
+    background: var(--primary-dark);
+    color: white;
+    z-index: 99;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.admin-mobile-header .admin-mobile-logo {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+}
+
+.admin-mobile-header .admin-menu-btn {
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 200ms ease;
+}
+
+.admin-mobile-header .admin-menu-btn:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.admin-mobile-header .admin-back-btn {
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 200ms ease;
+}
+
+.admin-mobile-header .admin-back-btn:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* 侧边栏遮罩 */
+.admin-sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 99;
+    opacity: 0;
+    transition: opacity 300ms ease;
+}
+
+.admin-sidebar-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+/* ========================================
+   分类管理页面布局
+   ======================================== */
+.admin-categories-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 24px;
+}
+
+.admin-categories-form {
+    min-width: 300px;
+}
+
+.admin-categories-list {
+    min-width: 0;
+}
+
+/* ========================================
    响应式
    ======================================== */
 @media (max-width: 768px) {
+    /* 分类管理页面：移动端改为单栏 */
+    .admin-categories-layout {
+        display: block !important;
+    }
+
+    .admin-categories-form {
+        margin-bottom: 16px;
+        min-width: auto;
+    }
+
+    .admin-mobile-header {
+        display: flex;
+    }
+
     .admin-sidebar {
         transform: translateX(-100%);
         transition: transform 300ms ease;
+        z-index: 100;
+        width: 220px;
+        height: 100vh;
+        overflow-y: auto;
     }
 
     .admin-sidebar.open {
@@ -573,38 +688,174 @@
 
     .admin-main {
         margin-left: 0;
+        padding: 72px 16px 24px;
+        min-height: 100vh;
+    }
+
+    .admin-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        margin-bottom: 16px;
+    }
+
+    .admin-header h1 {
+        font-size: 1.4rem;
     }
 
     .stats-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+
+    .stat-card {
+        padding: 14px;
+        gap: 10px;
+    }
+
+    .stat-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .stat-value {
+        font-size: 1.4rem;
+    }
+
+    .stat-label {
+        font-size: 0.75rem;
+    }
+
+    .admin-card-header {
+        padding: 12px 16px;
+    }
+
+    /* 统一移动端卡片内边距 */
+    .admin-card-body {
+        padding: 16px !important;
+    }
+
+    /* 表格横向滚动 */
+    .admin-table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 8px;
+        border: 1px solid var(--border-light);
+        margin: 0;
+    }
+
+    .admin-table {
+        min-width: 600px;
+        border: none;
+    }
+
+    .admin-table th,
+    .admin-table td {
+        padding: 10px 12px;
+        font-size: 0.8rem;
+        white-space: nowrap;
+    }
+
+    /* 表单优化 */
+    .admin-form .form-group {
+        margin-bottom: 16px;
+    }
+
+    .admin-form .form-input,
+    .admin-form .form-textarea,
+    .admin-form .form-select {
+        padding: 10px 12px;
+        font-size: 16px; /* 防止iOS缩放 */
     }
 
     .admin-form-actions {
         flex-direction: column;
+        gap: 8px;
+        margin-top: 20px;
+        padding-top: 16px;
     }
 
     .admin-form-actions .btn {
         width: 100%;
     }
 
+    /* 按钮 */
+    .btn {
+        padding: 10px 16px;
+        font-size: 0.85rem;
+    }
+
+    .btn-sm {
+        padding: 6px 10px;
+        font-size: 0.7rem;
+    }
+
     .inline-drop-zone {
         flex-direction: column;
         gap: 8px;
+        padding: 16px;
     }
 
     .uploaded-images-preview {
         justify-content: center;
     }
 
+    .uploaded-image-item {
+        width: 100px;
+        height: 100px;
+    }
+
+    /* Toast */
     .toast-container {
-        top: 16px;
-        right: 16px;
-        left: 16px;
+        top: 60px;
+        right: 12px;
+        left: 12px;
     }
 
     .toast {
         min-width: auto;
         width: 100%;
+        font-size: 0.8rem;
+        padding: 10px 14px;
+    }
+
+    /* 公告弹窗 */
+    .announcement-modal-overlay {
+        padding: 12px;
+    }
+
+    .announcement-modal {
+        max-width: 100%;
+    }
+
+    .announcement-modal-header,
+    .announcement-modal-body,
+    .announcement-modal-footer {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-header h1 {
+        font-size: 1.2rem;
+    }
+
+    .admin-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .admin-table th,
+    .admin-table td {
+        padding: 8px 10px;
+        font-size: 0.75rem;
     }
 }
 

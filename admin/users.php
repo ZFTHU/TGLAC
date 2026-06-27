@@ -56,7 +56,8 @@ $users = $db->fetchAll("SELECT id, username, email, role, created_at FROM {$db->
                 <p>暂无注册用户</p>
             </div>
             <?php else: ?>
-            <table class="admin-table">
+            <div class="admin-table-wrapper">
+                <table class="admin-table">
                 <thead>
                     <tr>
                         <th>用户名</th>
@@ -111,7 +112,8 @@ $users = $db->fetchAll("SELECT id, username, email, role, created_at FROM {$db->
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
-            </table>
+                </table>
+            </div>
             <?php endif; ?>
         </div>
     </div>

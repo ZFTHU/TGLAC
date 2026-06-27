@@ -13,13 +13,58 @@ document.addEventListener('DOMContentLoaded', function() {
  * 初始化侧边栏
  */
 function initAdminSidebar() {
-    // 移动端侧边栏切换
-    const toggleBtn = document.querySelector('.admin-sidebar-toggle');
-    const sidebar = document.querySelector('.admin-sidebar');
+    var menuBtn = document.getElementById('adminMenuBtn');
+    var sidebar = document.getElementById('adminSidebar');
+    var overlay = document.getElementById('adminSidebarOverlay');
 
+    function openSidebar() {
+        if (sidebar) sidebar.classList.add('open');
+        if (overlay) overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeSidebar() {
+        if (sidebar) sidebar.classList.remove('open');
+        if (overlay) overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    if (menuBtn && sidebar) {
+        menuBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (sidebar.classList.contains('open')) {
+                closeSidebar();
+            } else {
+                openSidebar();
+            }
+        });
+    }
+
+    if (overlay) {
+        overlay.addEventListener('click', closeSidebar);
+    }
+
+    // 侧边栏内链接点击后自动关闭（移动端）
+    if (sidebar) {
+        var links = sidebar.querySelectorAll('a');
+        links.forEach(function(link) {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    closeSidebar();
+                }
+            });
+        });
+    }
+
+    // 旧版兼容
+    var toggleBtn = document.querySelector('.admin-sidebar-toggle');
     if (toggleBtn && sidebar) {
         toggleBtn.addEventListener('click', function() {
-            sidebar.classList.toggle('open');
+            if (sidebar.classList.contains('open')) {
+                closeSidebar();
+            } else {
+                openSidebar();
+            }
         });
     }
 }

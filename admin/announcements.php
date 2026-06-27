@@ -98,7 +98,8 @@ $announcements = $announcementModel->getAllAdmin();
                 <p>暂无公告</p>
             </div>
             <?php else: ?>
-            <table class="admin-table">
+            <div class="admin-table-wrapper">
+                <table class="admin-table">
                 <thead>
                     <tr>
                         <th>标题</th>
@@ -153,7 +154,8 @@ $announcements = $announcementModel->getAllAdmin();
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
-            </table>
+                </table>
+            </div>
             <?php endif; ?>
         </div>
     </div>

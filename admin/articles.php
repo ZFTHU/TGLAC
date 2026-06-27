@@ -27,7 +27,8 @@ $articles = $articleModel->getList(1, 50, null, false);
     </div>
 
     <div class="admin-card">
-        <table class="admin-table">
+        <div class="admin-table-wrapper">
+            <table class="admin-table">
             <thead>
                 <tr>
                     <th>标题</th>
@@ -71,7 +72,8 @@ $articles = $articleModel->getList(1, 50, null, false);
                 <?php endforeach; ?>
                 <?php endif; ?>
             </tbody>
-        </table>
+            </table>
+        </div>
     </div>
 </div>
 
